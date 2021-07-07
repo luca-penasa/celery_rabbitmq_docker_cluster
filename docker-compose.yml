@@ -18,5 +18,16 @@ services:
         environment:
             - RABBITMQ_DEFAULT_USER=myuser
             - RABBITMQ_DEFAULT_PASS=mypassword
+            - RABBITMQ_DEFAULT_VHOST=vhost
         ports:
             - "5672:5672"
+            
+    flower:  
+        hostname: flower
+        image:  mher/flower:latest
+        environment:
+            - CELERY_BROKER_URL=amqp://myuser:mypassword@rabbit:5672/
+            - FLOWER_PORT=8889
+        ports:  
+            - 8889:8889
+
